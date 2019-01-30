@@ -8,9 +8,6 @@
 <body>
 	<?php 		//TAG de inclusão do PHP no HTML
 	?>
-
-	<?= //TAG de impressão do PHP?> 
-
 	<!--CRIÇÃO DE VARIÁVEL
 	Colocar $ antes do nome, o tipo da variável vai ser definido automaticamente-->
 
@@ -96,9 +93,9 @@
     ceil($numero);  #Arredonda o valor pra cima
     floor($numero); #Arredonda o valor pra baixo
     round($numero); #Arredonda o valor com base nas casas decimais
-    rand();			#Gera um numero int aleatório
+    rand();					#Gera um numero int aleatório
     sqrt($numero);	#Retorna a raiz quadrada
-    abs($numero);	#Deixa o número absoluto (sem sinal)
+    abs($numero);		#Deixa o número absoluto (sem sinal)
 
     Funções de datas
     date(formato) 	#Recupera a data atual
@@ -107,8 +104,8 @@
     strtotime(data) #Transforma uma string de data em segundos
 
  	###########################################################
-    ###########################################################
-    ####Ver como formatar a exibição de data no site do PHP####
+  	###########################################################
+  	####Ver como formatar a exibição de data no site do PHP####
  	###########################################################
  	###########################################################
 
@@ -129,7 +126,7 @@
 
 	var_dump($lista_array); #Uso para vizualização do array
 		array(5) {[0]=> string(5)"item1" [1]=> string(5)"item2" .. .. ..}
-	print_r($lista_array);  #Uso para vizualização do array
+		print_r($lista_array);  #Uso para vizualização do array
 		Array([0]=>item1 [1]=>item2 .. .. ..)
 
 	<pre></pre> #Uso para melhor vizualização do array
@@ -193,7 +190,7 @@
 	empty($variavel)   #True se a variável for vazia, false se não for
  
 
- 	NUll é exclusivamente NULL, nada mais é 
+ 	NUll é exclusivamente NULL, n ada mais é 
  	Empty pode ser NULL, EMPTY e FALSE
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -215,19 +212,207 @@
 	}
 //////////////////////////////////////////////////////////////////////////////////////////
 
+	$registros = ["Título 1", "Título 2", "Título 3"];
+	$idx = 0;
+
+	while($idx < 3){
+		$registros[idx];
+		$idx++;
+	}
+
+	$registros = [array("titulo" => "Título 1", "conteudo" => "Conteudo 1")
+								array("titulo" => "Título 2", "conteudo" => "Conteudo 2");]
+
+			while($idx < 2){
+				$registros[idx]["titulo"];
+				$registros[idx]["conteudo"];
+			}
+
+
+	do{
+		$registros[idx]
+		$idx++;
+	}while($idx < 3);
+
+	foreach($array_original as $indice => $aray_novo){
+		something
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+	PARA CRIAR UM FORMULÁRIO DE REGISTRO
+
+	<form action="valida_login.php" method="post"> 
+			#ESSA É A PÁGINA QUE VAI RECEBER AS INFORMAÇÕES
+			#O method="post" faz com que as informações não sejam passadas por meio da URL
+
+		<input name="email" type="email" class="form-control" placeholder="E-mail">   
+			#Colocando o name="" faz com que a informação seja passada por esse atributo       
+		<input name="senha" type="password" class="form-control" placeholder="Senha">
+		
+    <button class="btn btn-lg btn-info btn-block" type="submit">Entrar</button>
+    	#Colocando o type="submit" faz com que as informações sejam desparadas e cheguei ate o valida_login.php
+	</form>
+
+	PARA VERIFICAÇÃO DE USUÁRIO SEM BD
+
+	foreach ($usuarios_app as $user) {
+		if ($user["email"] == $_POST ["email"] && $user["senha"] == $_POST["senha"]) {
+			echo "Verificado";
+			$_SESSION['autenticado'] = "Sim"; #Cria uma variável de seção, deixando guardado para todas as páginas da aplicação se o usuário foi ou não autenticado
+		}else{
+			$_SESSION['autenticado'] = "Nao";
+			echo "Não verificado";
+		}
+	}
+
+	header("Location: index.php?login=erro"); 
+		#Faz com que a página seja recarregada com a página selecionada
+		#? passa um parâmetro para que seja possível recuperar a informação de erro 
+
+		isset($array["array"]); #Faz a verificação de se algum ítem do array está setado
+
+		if(!isset($_SESSION["autenticado"]) || $_SESSION["autenticado"] != "Sim"){ #Se o usuário não estiver autenticado, nega 																																							o acesso às páginas (Colocar em todas as 																																								páginas que precisam de autenticação)
+			header("Location: index.php?login=erro");
+		}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+	include("menu.php"); #Faz com que o script menu.php seja reproduzido na página atual
+						 #Quando não acha o script vai gerar um Warning, apenas um aviso 
+						 que não afetará a continuação da aplicação
+						 #Pode ser repetido quantas vezes forem necessárias dentro do script
+	include_once("menu.php"); #Só deixa exibir o script em questão uma vez por aplicação
+
+	require("menu.php"); #Faz com que o script menu.php seja reproduzido na página atual
+						 #Quando não acha o script vai gerar um Fatal Error, anulando todo
+						 e qualquer código após o Require
+						 #Pode ser repetido quantas vezes fores necessárias dentro do scripr
+	require_once("menu.php"); #Só deixa exibir o script em questão uma vez por aplicação
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+	session_destroy(); #Destrói todas as informações dentro da $_SESSION, mas até que seja
+						feita uma nova requisição é possível ter acesso
+					   #Usar um header("Location: "); para fazer o redirecionamento e a 
+					   	destruição das informações
+
+	unset($_SESSION["x"]);	#Apaga uma informação automaticamente
+							#Só vai apagar alguma informação caso ela existir, não causa erros
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+ 	POO
+
+ 		class AlgumaClasse{
+ 			#Criação de variáveis
+ 			public $nome = null;
+ 			public $telefone = null;
+ 			public $idade = null;
+
+ 			#Criação de um construtor
+ 			function __construct($nome, $telefone, $idade){
+ 				$this->nome = $nome;
+ 				$this->telefone = $telefone;
+ 				$this->idade = $idade;
+ 			}
+
+ 			#Criação de um método para remover um objeto da memória 
+ 			function __destruct(){
+ 				echo "Objeto removido";
+ 			}
+
+
+ 			#Criação de métodos Get e Set manualmente
+ 			function setNome($nome){
+ 				$this->nome = $nome;
+ 			}
+ 			function getNome(){
+ 				return $this->nome;
+ 			}
+
+ 			function setTelefone($telefone){
+ 				$this->telefone = $telefone;
+ 			}
+ 			function getTelefone(){
+ 				return $this->telefone;
+ 			}
+
+ 			function setIdade($idade){
+ 				$this->idade = $idade;
+ 			}
+ 			function getIdade(){
+ 				return $this->idade;
+ 			}
+
+
+ 			#Métodos mágicos getters e setter, pode fazer a atribuição dos valores sem ter que escrever os métodos para todas as variáveis
+ 			function __set($atributo, $valor){
+ 				$this-> $atributo = $valor;
+ 			}
+ 			function __get($atributo){
+ 				return $this->$atributo;
+ 			}
+
+ 			function algumaFuncao(){
+
+ 			}
+
+ 			function algumaOutraFuncao(){
+ 			}
+
+ 		}
+
+ 		#Criação de um objeto daquela classe
+ 		$x = new AlgumaClasse();
+ 		#Atribuição de valores às variáveis por métodos Set
+ 		$x->setNome("Giovane");
+ 		$x->setTelefone("(11) 99806-4678");
+ 		$x->setIdade(19);
+
+ 		#Criação de um objeto QUE TENHA UM CONSTRUTOR PADRÃO COM ATRIBUTOS INSTANCIADOS
+ 		$y = new AlgumaClasse("Giovane", "(11) 998064678", 1.80);
+
+ 		#Atribuição de valores às variáveis pelo método mágico Set
+ 		$x-> __set("nome", "Giovane");
+ 		$x-> __get("nome");
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
 
- 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 
 
